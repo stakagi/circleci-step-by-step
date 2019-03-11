@@ -53,4 +53,8 @@ workflows:
     jobs:
       - jdk8
       - jdk10
+          requires:
+            - jdk8
       - jdk11
+          requires:
+            - jdk8
