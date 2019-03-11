@@ -14,6 +14,13 @@ jobs:
       - run:
           name: Wait for DB
           command: dockerize -wait tcp://127.0.0.1:5432 -timeout 120s
+            
+      - run: mvn dependency:go-offline
+      - run: mvn package
+      - store_test_results:
+          path: target/surefire-reports
+      - store_artifacts:
+          path: target/demo-java-spring-0.0.1-SNAPSHOT.jar
 
           
   jdk10:
@@ -30,6 +37,13 @@ jobs:
       - run:
           name: Wait for DB
           command: dockerize -wait tcp://127.0.0.1:5432 -timeout 120s
+            
+      - run: mvn dependency:go-offline
+      - run: mvn package
+      - store_test_results:
+          path: target/surefire-reports
+      - store_artifacts:
+          path: target/demo-java-spring-0.0.1-SNAPSHOT.jar
 
           
   jdk11:
@@ -46,15 +60,18 @@ jobs:
       - run:
           name: Wait for DB
           command: dockerize -wait tcp://127.0.0.1:5432 -timeout 120s
+            
+      - run: mvn dependency:go-offline
+      - run: mvn package
+      - store_test_results:
+          path: target/surefire-reports
+      - store_artifacts:
+          path: target/demo-java-spring-0.0.1-SNAPSHOT.jar
 
 workflows:
   version: 2
   build:
     jobs:
       - jdk8
-      - jdk10:
-          requires:
-            - jdk8
-      - jdk11:
-          requires:
-            - jdk10
+      - jdk10
+      - jdk11
